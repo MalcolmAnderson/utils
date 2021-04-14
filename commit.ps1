@@ -7,6 +7,7 @@ $testing = $false
 
 $incorrectArgCount = $argCount -ne 2
 
+Write-Host $argCount
 
 if($incorrectArgCount){
     Write-Host "commit requires 2 parameters, old_branch and new_branch"
@@ -39,11 +40,14 @@ if (-not $abort){
     if($old_branch.Length -eq 3){ $old_branch = $stem + $old_branch }
     if($new_branch.Length -eq 3){ $new_branch = $stem + $new_branch }
 
-    $old_branch = $stem + $args[0]
-    $new_branch = $stem + $args[1]
+    #$old_branch = $stem + $args[0]
+    #$new_branch = $stem + $args[1]
 
     if($testing){
     Write-Host "git status"
+    Write-Host "git add ."
+    Write-Host "git commit -m "automated commit""
+    Write-Host "git push"
     Write-Host "git checkout main"
     Write-Host "git merge $old_branch"
     Write-Host "git push"
@@ -52,6 +56,9 @@ if (-not $abort){
     Write-Host "git status"
     } else {
         git status
+        git add .
+        git commit -m "automated commit"
+        git push
         git checkout main
         git merge $old_branch
         git push
